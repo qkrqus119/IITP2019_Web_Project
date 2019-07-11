@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Gugi|Jua|Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+        
+        #header {
+            height: 15vh;
+            line-height: 15vh;
+            text-align: left;
+            font-family: 'Noto Sans KR';
+            font-weight: 800;
+            font-size: 2.5em;
+            background-color: #1e221fc2;
+            color: white;
+            letter-spacing: 1pt;
+        }
+        
+        #header>span {
+            margin-left: 20px;
+        }
+        
+        #section {
+            height: 75vh;
+        }
+        
+        #footer {
+            height: 10vh;
+            border-top: 4px solid #1e221fc2;
+        }
+        
+        .col-md-2 {
+            text-align: center;
+            border-right: 4px solid #1e221fc2;
+        }
+        
+        .col-md-2,
+        .col-md-10 {
+            height: 75vh;
+            padding: 0px;
+        }
+        
+        .menu {
+            font-family: "Noto Sans KR";
+            font-size: 24px;
+            height: 25vh;
+            line-height: 25vh;
+        }
+        
+        .menu:hover {
+            background-color: #1e221fc2;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .col-md-10>* {
+            display: inline-block;
+            text-align: center;
+            font-family: "Noto Sans KR";
+        }
+    </style>
+</head>
+
+<body>
+    <div clsss="container-fluid">
+        <div id="header">
+            <span>축구사이트</span>
+        </div>
+        <div id="section">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="menu">
+                        등록한 경기
+                    </div>
+                    <div class="menu">
+                        조회한 경기
+                    </div>
+                    <div class="menu">
+                        지원한 경기
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            조원:~~~~~~
+        </div>
+    </div>
+
+    <script type="text/javascript" src="calendar_list.js"></script>
+</body>
+
+</html>
