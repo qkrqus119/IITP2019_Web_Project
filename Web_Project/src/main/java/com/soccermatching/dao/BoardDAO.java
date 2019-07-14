@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.soccermatching.dto.BoardDTO;
-import com.soccermatching.dto.BoardPlaceInfoDTO;
 
 public class BoardDAO {
 
@@ -30,17 +29,17 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<BoardDTO> readAll() {
 		List<BoardDTO> boardDTOList = new ArrayList<>();
-		
-String sql = "select * from board";
-		
+
+		String sql = "select * from board";
+
 		try {
 			connection = DriverManager.getConnection(url, username, password);
 			preparedStatement = connection.prepareStatement(sql);
 			resultSet = preparedStatement.executeQuery();
-			
+
 			while (resultSet.next()) {
 				BoardDTO boardDTO = new BoardDTO();
 				boardDTO.setAddress(resultSet.getString("address"));
@@ -53,7 +52,7 @@ String sql = "select * from board";
 				boardDTO.setNumber(resultSet.getInt("number"));
 				boardDTO.setPlaceName(resultSet.getString("place_name"));
 				boardDTO.setRegisterDate(resultSet.getDate("register_date"));
-				
+
 				boardDTOList.add(boardDTO);
 			}
 		} catch (SQLException e) {
@@ -64,11 +63,11 @@ String sql = "select * from board";
 				if (resultSet != null) {
 					resultSet.close();
 				}
-				
+
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
-				
+
 				if (connection != null) {
 					connection.close();
 				}
@@ -77,7 +76,7 @@ String sql = "select * from board";
 				e.printStackTrace();
 			}
 		}
-		
+
 		return boardDTOList;
 	}
 
@@ -127,6 +126,60 @@ String sql = "select * from board";
 		}
 
 		return boardDTO;
+	}
+	
+	public List<BoardDTO> read(String southLat, String northLat, String westLng, String eastLng) {
+		List<BoardDTO> boardDTOList = new ArrayList<>();
+
+		String sql = "select * from board where number in (select board_number from board_place_info where lat between ? and ? and lng between ? and ?);";
+
+		try {
+			connection = DriverManager.getConnection(url, username, password);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, southLat);
+			preparedStatement.setString(2, northLat);
+			preparedStatement.setString(3, westLng);
+			preparedStatement.setString(4, eastLng);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				BoardDTO boardDTO = new BoardDTO();
+				boardDTO.setAddress(resultSet.getString("address"));
+				boardDTO.setAuthor(resultSet.getInt("author"));
+				boardDTO.setContent(resultSet.getString("content"));
+				boardDTO.setGameDate(resultSet.getDate("game_date"));
+				boardDTO.setGameGenderType(resultSet.getInt("game_gender_type"));
+				boardDTO.setGameStartTime(resultSet.getTime("game_start_time").toLocalTime());
+				boardDTO.setGameType(resultSet.getString("game_type"));
+				boardDTO.setNumber(resultSet.getInt("number"));
+				boardDTO.setPlaceName(resultSet.getString("place_name"));
+				boardDTO.setRegisterDate(resultSet.getDate("register_date"));
+
+				boardDTOList.add(boardDTO);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return boardDTOList;
 	}
 
 }
