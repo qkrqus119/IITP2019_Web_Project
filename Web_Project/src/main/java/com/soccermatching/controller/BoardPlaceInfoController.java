@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soccermatching.dao.BoardPlaceInfoDAO;
 
@@ -34,16 +33,13 @@ public class BoardPlaceInfoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(new BoardPlaceInfoDAO().readAll());
-		
-        System.out.println( json);
-        
-        JsonNode jsonNode = objectMapper.readTree(json);
+		String posisionsJson = "{ \"positions\" : " + json + "}";
 		
         response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		
 		PrintWriter out = response.getWriter();
-		out.print(jsonNode);
+		out.print(posisionsJson);
 		out.flush();
 	}
 
