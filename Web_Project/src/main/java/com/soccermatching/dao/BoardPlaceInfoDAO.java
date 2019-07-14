@@ -15,11 +15,11 @@ public class BoardPlaceInfoDAO {
 	private Connection connection = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
-	
+
 	private String url = "jdbc:mysql://localhost:3306/soccer_matching";
 	private String username = "newuser";
 	private String password = "newuser";
-	
+
 	public BoardPlaceInfoDAO() {
 		try {
 			Class.forName(driverName);
@@ -28,23 +28,23 @@ public class BoardPlaceInfoDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<BoardPlaceInfoDTO> readAll() {
 		List<BoardPlaceInfoDTO> boardPlaceInfoDTOList = new ArrayList<>();
-		
+
 		String sql = "select * from board_place_info";
-		
+
 		try {
 			connection = DriverManager.getConnection(url, username, password);
 			preparedStatement = connection.prepareStatement(sql);
 			resultSet = preparedStatement.executeQuery();
-			
+
 			while (resultSet.next()) {
 				BoardPlaceInfoDTO boardPlaceInfoDTO = new BoardPlaceInfoDTO();
 				boardPlaceInfoDTO.setBoardNumber(resultSet.getInt("board_number"));
 				boardPlaceInfoDTO.setLat(resultSet.getString("lat"));
 				boardPlaceInfoDTO.setLng(resultSet.getString("lng"));
-				
+
 				boardPlaceInfoDTOList.add(boardPlaceInfoDTO);
 			}
 		} catch (SQLException e) {
@@ -55,11 +55,58 @@ public class BoardPlaceInfoDAO {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-				
+
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
-				
+
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return boardPlaceInfoDTOList;
+	}
+
+	public List<BoardPlaceInfoDTO> read(String southLat, String nortLat, String westLng, String eastLng) {
+		List<BoardPlaceInfoDTO> boardPlaceInfoDTOList = new ArrayList<>();
+		
+		String sql = "select * from board_place_info where lat between ? and ? and lng between ? and ?";
+
+		try {
+			connection = DriverManager.getConnection(url, username, password);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, southLat);
+			preparedStatement.setString(2, nortLat);
+			preparedStatement.setString(3, westLng);
+			preparedStatement.setString(4, eastLng);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				BoardPlaceInfoDTO boardPlaceInfoDTO = new BoardPlaceInfoDTO();
+				boardPlaceInfoDTO.setBoardNumber(resultSet.getInt("board_number"));
+				boardPlaceInfoDTO.setLat(resultSet.getString("lat"));
+				boardPlaceInfoDTO.setLng(resultSet.getString("lng"));
+
+				boardPlaceInfoDTOList.add(boardPlaceInfoDTO);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+
 				if (connection != null) {
 					connection.close();
 				}
@@ -70,7 +117,6 @@ public class BoardPlaceInfoDAO {
 		}
 		
 		return boardPlaceInfoDTOList;
-		
 	}
 
 }

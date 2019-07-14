@@ -1,8 +1,8 @@
 package com.soccermatching.controller;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +24,20 @@ public class BoardController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(new BoardDAO().readAll());
+		String json;
+		
+		Map<String, String[]> map = request.getParameterMap();
+		
+		if (map.containsKey("southLat") && map.containsKey("northLat") && map.containsKey("westLng") && map.containsKey("eastLng")) {
+			String southLat = request.getParameter("southLat");
+			String northLat = request.getParameter("northLat");
+			String westLng = request.getParameter("westLng");
+			String eastLng = request.getParameter("eastLng");
+			
+			json = objectMapper.writeValueAsString(new BoardDAO().read(southLat, northLat, westLng, eastLng));
+		} else {
+			json = objectMapper.writeValueAsString(new BoardDAO().readAll());
+		}
 		
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
