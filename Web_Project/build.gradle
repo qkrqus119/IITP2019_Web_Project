@@ -12,17 +12,17 @@ plugins {
     id 'eclipse-wtp'
 }
 
-// ¼Ò½º ÆÄÀÏ ÀÎÄÚµù Çü½Ä ¼³Á¤
+// ì†ŒìŠ¤ íŒŒì¼ ì¸ì½”ë”© í˜•ì‹ ì„¤ì •
 compileJava.options.encoding = 'UTF-8'
 
-// ¼Ò½º ÄÚµå ÀÚ¹Ù ¹öÀü ¼³Á¤
+// ì†ŒìŠ¤ ì½”ë“œ ìë°” ë²„ì „ ì„¤ì •
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-// ºôµå ¹öÀü ¼³Á¤
+// ë¹Œë“œ ë²„ì „ ì„¤ì •
 version = 1.0
 
-// À¥ ÇÁ·ÎÁ§Æ® ¼­ºí¸´ ¹× ÀÚ¹Ù ¹öÀü ¼³Á¤
+// ì›¹ í”„ë¡œì íŠ¸ ì„œë¸”ë¦¿ ë° ìë°” ë²„ì „ ì„¤ì •
 eclipse {
     project.natures "org.springsource.ide.eclipse.gradle.core.nature"
     wtp {
