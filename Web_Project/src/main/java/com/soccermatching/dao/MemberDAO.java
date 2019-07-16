@@ -1,3 +1,5 @@
+package com.soccermatching.dao;
+
 
 
 import java.sql.Connection;
@@ -5,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.soccermatching.dto.MemberDTO;
 
 
 public class MemberDAO {

@@ -1,3 +1,5 @@
+package com.soccermatching.dto;
+
 
 public class MemberDTO {
 	String id;
